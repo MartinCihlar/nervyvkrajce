@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&amp;family=Manrope:wght@400;500;600;700&amp;family=Sacramento&amp;display=swap" rel="stylesheet" />
+<style>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #FCF9F7; font-family: 'Manrope', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: #FF0F9C; text-decoration: none; }
+a:hover { color: #FF7A16; }
+img, iframe { max-width: 100%; }
+input, textarea, button { font-family: 'Manrope', system-ui, sans-serif; }
+textarea { resize: vertical; }
+</style>
+</helmet>
+
+<div style="position: sticky; top: 0; z-index: 30; padding: 14px clamp(20px, 5vw, 56px); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 28px; border-bottom: 1px solid #EBE3DE; background: rgba(252,249,247,0.9); backdrop-filter: blur(12px);">
+  <a href="#top" style="display: flex; align-items: center;"><img src="assets/logo-mark.png" alt="Nervy v krajce podcast" style="height: clamp(34px, 4.4vw, 44px); width: auto; display: block;" /></a>
+  <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px clamp(16px, 2.4vw, 32px);">
+    <a href="#epizody" style="font-size: 15px; font-weight: 600; color: #4A4350;">Epizody</a>
+    <a href="#shorts" style="font-size: 15px; font-weight: 600; color: #4A4350;">Shorts</a>
+    <a href="#o-podcastu" style="font-size: 15px; font-weight: 600; color: #4A4350;">O podcastu</a>
+    <a href="#kdo-jsme" style="font-size: 15px; font-weight: 600; color: #4A4350;">Kdo jsme</a>
+    <a href="#kde" style="font-size: 15px; font-weight: 600; color: #4A4350;">Kde poslouchat</a>
+  </div>
+  <button type="button" onClick="{{ playLatest }}" style="border: 0; cursor: pointer; height: 46px; padding: 0 24px; border-radius: 999px; background: #FF0F9C; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;" style-hover="background: #17131B;">Poslechnout</button>
+</div>
+
+<div id="top" style="padding: clamp(48px, 6vw, 84px) clamp(20px, 5vw, 56px) clamp(56px, 7vw, 92px);">
+  <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: clamp(36px, 4vw, 56px); align-items: center;">
+    <div style="display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 26px);">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="width: 8px; height: 8px; border-radius: 999px; background: #FF0F9C;"></span>
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #FF0F9C;">Svatební podcast</span>
+      </div>
+      <div>
+        <h1 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(38px, 6.2vw, 68px); line-height: 0.94; letter-spacing: -0.028em; text-transform: uppercase; color: #17131B;">Tady se mluví<br />narovinu</h1>
+        <div style="margin-top: 2px; font-family: 'Sacramento', cursive; font-size: clamp(34px, 5.2vw, 58px); line-height: 1; color: #FF7A16;">o svatbách</div>
+      </div>
+      <p style="margin: 0; max-width: 470px; font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; color: #6B6470; text-wrap: pretty;">Podcast pro všechny, kterým nestačí hezké fotky na Instagramu. Praktické rady, které ti ušetří nervy i peníze, a reálné příběhy nevěst, hostů a dodavatelů.</p>
+      <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 14px;">
+        <button type="button" onClick="{{ playLatest }}" style="border: 0; cursor: pointer; height: 56px; padding: 0 30px; border-radius: 999px; background: #FF0F9C; color: #fff; font-size: 15px; font-weight: 700;" style-hover="background: #17131B;">Přehrát nejnovější epizodu</button>
+        <a href="#epizody" style="display: inline-flex; align-items: center; height: 56px; padding: 0 28px; border-radius: 999px; border: 1px solid #DBD3CD; color: #17131B; font-size: 15px; font-weight: 600;" style-hover="border-color: #17131B;">Všechny epizody</a>
+      </div>
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #9B9299;">21 epizod · nové díly pravidelně · YouTube &amp; Spotify</div>
+    </div>
+
+    <div style="background: #fff; border: 1px solid #EBE3DE; border-radius: 24px; padding: 14px; box-shadow: 0 30px 60px -34px rgba(23,19,27,0.4);">
+      <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #17131B;">
+        <iframe src="https://www.youtube.com/embed/videoseries?list=UULFHKjl2FUGINKljeazp3yLAg&amp;rel=0" title="Nervy v krajce — nejnovější epizoda" allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen="" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+      </div>
+      <div style="padding: 18px 12px 10px; display: flex; flex-direction: column; gap: 7px;">
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #FF0F9C;">Nejnovější epizoda</span>
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(17px, 1.6vw, 19px); line-height: 1.3; color: #17131B;">Kolik svatba doopravdy stojí — a kde se šetřit nevyplatí</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="epizody" style="padding: clamp(56px, 7vw, 92px) clamp(20px, 5vw, 56px) clamp(60px, 7vw, 96px); background: #fff; border-top: 1px solid #EBE3DE; border-bottom: 1px solid #EBE3DE;">
+  <div style="max-width: 1240px; margin: 0 auto;">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 18px 28px; margin-bottom: clamp(28px, 3.4vw, 40px);">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(30px, 4vw, 42px); letter-spacing: -0.02em; text-transform: uppercase; color: #17131B;">Epizody</h2>
+        <span style="font-family: ui-monospace, monospace; font-size: 12px; color: #8F857D;">náhledy se tahají živě z YouTube · názvy a délky = ukázková data → nahradit</span>
+      </div>
+      <a href="https://www.youtube.com/@nervyvkrajce/" target="_blank" style="font-size: 14px; font-weight: 700;">Celý archiv na YouTube →</a>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px;">
+      <sc-for list="{{ episodes }}" as="ep" hint-placeholder-count="6">
+        <div onClick="{{ ep.onPlay }}" style="cursor: pointer; background: #FCF9F7; border: 1px solid #EBE3DE; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.18s, transform 0.18s;" style-hover="border-color: #FF0F9C; transform: translateY(-3px);">
+          <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; background: #17131B; overflow: hidden;">
+            <sc-if value="{{ ep.hasThumb }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ ep.thumb }}" alt="{{ ep.title }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
+              <span style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; justify-content: center; width: 54px; height: 54px; border-radius: 999px; background: #FF0F9C; box-shadow: 0 10px 24px -8px rgba(23,19,27,0.6);">
+                <span style="width: 0; height: 0; margin-left: 4px; border-left: 13px solid #fff; border-top: 8px solid transparent; border-bottom: 8px solid transparent;"></span>
+              </span>
+            </sc-if>
+            <sc-if value="{{ ep.noThumb }}" hint-placeholder-val="{{ true }}">
+              <iframe src="{{ ep.embed }}" title="{{ ep.title }}" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen="" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none;"></iframe>
+            </sc-if>
+          </div>
+          <div style="padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px; color: #FF0F9C;">{{ ep.num }}</span>
+              <span style="width: 3px; height: 3px; border-radius: 999px; background: #D3C9C2;"></span>
+              <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #FF0F9C;">{{ ep.tag }}</span>
+              <span style="margin-left: auto; font-size: 12px; font-weight: 600; color: #9B9299;">{{ ep.dur }}</span>
+            </div>
+            <div style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(18px, 1.7vw, 20px); line-height: 1.32; color: #17131B; text-wrap: pretty;">{{ ep.title }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top: 36px; display: flex; justify-content: center;">
+      <a href="https://www.youtube.com/@nervyvkrajce/" target="_blank" style="display: inline-flex; align-items: center; height: 54px; padding: 0 32px; border-radius: 999px; border: 1px solid #DBD3CD; color: #17131B; font-size: 15px; font-weight: 600; text-align: center;" style-hover="border-color: #17131B;">Zobrazit všech 21 epizod</a>
+    </div>
+  </div>
+</div>
+
+<div id="o-podcastu" style="padding: clamp(60px, 7vw, 96px) clamp(20px, 5vw, 56px); background: #17131B;">
+  <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(32px, 4vw, 64px);">
+    <div>
+      <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(30px, 3.8vw, 40px); line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; color: #fff;">O čem to<br />celé je</h2>
+      <div style="margin-top: 6px; font-family: 'Sacramento', cursive; font-size: clamp(32px, 4vw, 44px); color: #FF7A16;">a proč to točíme</div>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <div style="display: flex; gap: clamp(14px, 2vw, 24px); padding: 26px 0; border-top: 1px solid rgba(255,255,255,0.14);">
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: #FF0F9C; padding-top: 4px;">01</span>
+        <div>
+          <div style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(19px, 2vw, 22px); color: #fff;">Svatební témata bez filtru</div>
+          <p style="margin: 8px 0 0; font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.62); max-width: 560px;">Mluvíme i o tom, o čem se u kávy s tetou nemluví. Rozpočty, konflikty, kompromisy a rodinná diplomacie.</p>
+        </div>
+      </div>
+      <div style="display: flex; gap: clamp(14px, 2vw, 24px); padding: 26px 0; border-top: 1px solid rgba(255,255,255,0.14);">
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: #FF0F9C; padding-top: 4px;">02</span>
+        <div>
+          <div style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(19px, 2vw, 22px); color: #fff;">Tipy, které ušetří nervy i peníze</div>
+          <p style="margin: 8px 0 0; font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.62); max-width: 560px;">Konkrétní rady od dvou profesionálek, které stály u stovek svateb — od hledání místa až po druhý den ráno.</p>
+        </div>
+      </div>
+      <div style="display: flex; gap: clamp(14px, 2vw, 24px); padding: 26px 0; border-top: 1px solid rgba(255,255,255,0.14); border-bottom: 1px solid rgba(255,255,255,0.14);">
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: #FF0F9C; padding-top: 4px;">03</span>
+        <div>
+          <div style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(19px, 2vw, 22px); color: #fff;">Reálné příběhy</div>
+          <p style="margin: 8px 0 0; font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.62); max-width: 560px;">Nevěsty, hosté i dodavatelé. Co se opravdu stalo — a co si z toho vzít pro vlastní den D.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="shorts" style="padding: clamp(52px, 6vw, 84px) clamp(20px, 5vw, 56px) clamp(60px, 7vw, 92px); background: #fff;">
+  <div style="max-width: 1240px; margin: 0 auto;">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px 32px; margin-bottom: clamp(24px, 3vw, 34px);">
+      <div>
+        <div style="margin-bottom: 14px; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #FF0F9C;">Shorts</div>
+        <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(28px, 3.8vw, 40px); line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; color: #17131B;">Nemáš čas<br />na celou epizodu?</h2>
+        <div style="margin-top: 4px; font-family: 'Sacramento', cursive; font-size: clamp(32px, 4vw, 44px); color: #FF7A16;">tak si dej shorts</div>
+        <p style="margin: 16px 0 0; max-width: 480px; font-size: 16px; line-height: 1.65; color: #6B6470; text-wrap: pretty;">Minutové odpovědi na otázky, které řeší každý druhý pár. Jeden pustíš — a než se rozkoukáš, jsi u pátého.</p>
+      </div>
+      <a href="https://www.youtube.com/@nervyvkrajce/" target="_blank" style="display: inline-flex; align-items: center; height: 52px; padding: 0 26px; border-radius: 999px; background: #FF0F9C; color: #fff; font-size: 14px; font-weight: 700;" style-hover="background: #FF7A16; color: #fff;">Všechny shorts →</a>
+    </div>
+    <div style="display: flex; gap: 16px; overflow-x: auto; padding-bottom: 14px; scroll-snap-type: x mandatory;">
+      <div style="flex: 0 0 auto; width: clamp(190px, 21vw, 250px); scroll-snap-align: start;">
+        <div style="position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #17131B; border: 1px solid #EBE3DE;">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=UUSHHKjl2FUGINKljeazp3yLAg&amp;index=1&amp;rel=0" title="Nervy v krajce — shorts 1" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen="" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+        </div>
+      </div>
+      <div style="flex: 0 0 auto; width: clamp(190px, 21vw, 250px); scroll-snap-align: start;">
+        <div style="position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #17131B; border: 1px solid #EBE3DE;">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=UUSHHKjl2FUGINKljeazp3yLAg&amp;index=2&amp;rel=0" title="Nervy v krajce — shorts 2" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen="" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+        </div>
+      </div>
+      <div style="flex: 0 0 auto; width: clamp(190px, 21vw, 250px); scroll-snap-align: start;">
+        <div style="position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #17131B; border: 1px solid #EBE3DE;">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=UUSHHKjl2FUGINKljeazp3yLAg&amp;index=3&amp;rel=0" title="Nervy v krajce — shorts 3" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen="" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+        </div>
+      </div>
+      <div style="flex: 0 0 auto; width: clamp(190px, 21vw, 250px); scroll-snap-align: start;">
+        <div style="position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #17131B; border: 1px solid #EBE3DE;">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=UUSHHKjl2FUGINKljeazp3yLAg&amp;index=4&amp;rel=0" title="Nervy v krajce — shorts 4" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen="" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+        </div>
+      </div>
+      <div style="flex: 0 0 auto; width: clamp(190px, 21vw, 250px); scroll-snap-align: start;">
+        <div style="position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #17131B; border: 1px solid #EBE3DE;">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=UUSHHKjl2FUGINKljeazp3yLAg&amp;index=5&amp;rel=0" title="Nervy v krajce — shorts 5" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen="" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 10px; font-family: ui-monospace, monospace; font-size: 12px; color: #8F857D;">přehraješ jeden a YouTube pustí další v řadě · táhni do strany pro víc</div>
+  </div>
+</div>
+
+<div id="kdo-jsme" style="padding: clamp(60px, 7vw, 96px) clamp(20px, 5vw, 56px); background: #FCF9F7;">
+  <div style="max-width: 1240px; margin: 0 auto;">
+    <div style="max-width: 620px; margin-bottom: clamp(30px, 3.6vw, 44px);">
+      <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(30px, 4vw, 42px); letter-spacing: -0.02em; text-transform: uppercase; color: #17131B;">Kdo jsme</h2>
+      <p style="margin: 14px 0 0; font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; color: #6B6470;">Dvě svatební profesionálky, které se na svatbách potkávají od rána do rána. Jedna po celé České republice, druhá v Alpách a u Středozemního moře.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px;">
+      <div style="background: #fff; border: 1px solid #EBE3DE; border-radius: 22px; overflow: hidden;">
+        <div style="aspect-ratio: 4 / 3; background: repeating-linear-gradient(45deg, #F3ECE7 0 8px, #FAF6F3 8px 16px); display: flex; align-items: center; justify-content: center;">
+          <span style="font-family: ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; color: #8F857D; background: #FCF9F7; padding: 8px 14px; border-radius: 6px;">portrét Marcely — nahraj sem</span>
+        </div>
+        <div style="padding: clamp(24px, 2.6vw, 30px) clamp(22px, 2.6vw, 32px) 34px;">
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #FF0F9C;">Svatební koordinátorka · ČR</div>
+          <div style="margin-top: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(24px, 2.6vw, 28px); letter-spacing: -0.01em; color: #17131B;">Marcela Cihlářová</div>
+          <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: #6B6470; text-wrap: pretty;">Osm let plánuje a koordinuje svatby po celé České republice. Pomohla víc než stovce párů — řešila harmonogramy, dodavatele, zasedací pořádky i nervy z rodiny. Ke koordinaci má i vlastní půjčovnu dekorací.</p>
+          <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 14px; font-weight: 700;">
+            <a href="https://www.marcelacihlarova.cz" target="_blank">marcelacihlarova.cz</a>
+            <a href="https://www.instagram.com/marsy.cihlarova/" target="_blank">@marsy.cihlarova</a>
+          </div>
+        </div>
+      </div>
+      <div style="background: #fff; border: 1px solid #EBE3DE; border-radius: 22px; overflow: hidden;">
+        <div style="aspect-ratio: 4 / 3; background: repeating-linear-gradient(45deg, #F3ECE7 0 8px, #FAF6F3 8px 16px); display: flex; align-items: center; justify-content: center;">
+          <span style="font-family: ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; color: #8F857D; background: #FCF9F7; padding: 8px 14px; border-radius: 6px;">portrét Martiny — nahraj sem</span>
+        </div>
+        <div style="padding: clamp(24px, 2.6vw, 30px) clamp(22px, 2.6vw, 32px) 34px;">
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #FF0F9C;">Wedding planner · Alpy &amp; Středomoří</div>
+          <div style="margin-top: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(24px, 2.6vw, 28px); letter-spacing: -0.01em; color: #17131B;">Martina — Alp Weddings</div>
+          <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: #6B6470; text-wrap: pretty;">Rodilá Pražačka, která v osmnácti odjela s jedním kufrem do Německa. Vyrostla v luxusním hotelnictví — Four Seasons, Kempinski — a od roku 2018 plánuje svatby v Alpách, evropských metropolích i u Středozemního moře. Přes 150 svateb, tisíc eventů, deset tisíc hostů. Česky, německy, anglicky.</p>
+          <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 14px; font-weight: 700;">
+            <a href="https://alp-weddings.com" target="_blank">alp-weddings.com</a>
+            <a href="https://www.instagram.com/alpweddings_" target="_blank">@alpweddings_</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="kde" style="padding: clamp(56px, 6.5vw, 88px) clamp(20px, 5vw, 56px); background: #fff; border-top: 1px solid #EBE3DE;">
+  <div style="max-width: 1240px; margin: 0 auto;">
+    <h2 style="margin: 0 0 clamp(24px, 3vw, 34px); font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(30px, 4vw, 42px); letter-spacing: -0.02em; text-transform: uppercase; color: #17131B;">Kde nás najdeš</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 16px;">
+      <a href="https://www.youtube.com/@nervyvkrajce/" target="_blank" style="border: 1px solid #EBE3DE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 30px; color: #17131B;" style-hover="border-color: #FF0F9C;">
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 17px;">YouTube</span>
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #9B9299;">Dívat se →</span>
+      </a>
+      <a href="https://open.spotify.com/show/4TsA6sygVBOWhEKl0IZ0I7" target="_blank" style="border: 1px solid #EBE3DE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 30px; color: #17131B;" style-hover="border-color: #FF0F9C;">
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 17px;">Spotify</span>
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #9B9299;">Poslouchat →</span>
+      </a>
+      <a href="https://podcasts.apple.com/cz/podcast/nervy-v-krajce/id1882758433" target="_blank" style="border: 1px solid #EBE3DE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 30px; color: #17131B;" style-hover="border-color: #FF0F9C;">
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 17px;">Apple Podcasts</span>
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #9B9299;">Poslouchat →</span>
+      </a>
+      <a href="https://www.tiktok.com/@nervyvkrajce_podcast" target="_blank" style="border: 1px solid #EBE3DE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 30px; color: #17131B;" style-hover="border-color: #FF0F9C;">
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 17px;">TikTok</span>
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #9B9299;">Sledovat →</span>
+      </a>
+      <a href="https://www.instagram.com/nervyvkrajce_podcast/" target="_blank" style="border: 1px solid #EBE3DE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 30px; color: #17131B;" style-hover="border-color: #FF0F9C;">
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 17px;">Instagram</span>
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #9B9299;">Sledovat →</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div style="padding: clamp(56px, 7vw, 92px) clamp(20px, 5vw, 56px); background: #FFF2F8;">
+  <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(32px, 4vw, 64px); align-items: start;">
+    <div>
+      <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(30px, 3.8vw, 40px); line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; color: #17131B;">Máš téma<br />do epizody?</h2>
+      <p style="margin: 18px 0 0; max-width: 440px; font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; color: #6B6470;">Napiš nám, co tě na svatbách pálí. Nejzajímavější dotazy rozebíráme v dalších dílech — klidně anonymně.</p>
+      <sc-if value="{{ showPartnerNote }}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top: 34px; padding-top: 24px; border-top: 1px solid #F5D8E8; font-size: 15px; line-height: 1.6; color: #6B6470;">Chceš být partnerem epizody? Napiš na <a href="mailto:ahoj@nervyvkrajce.cz">ahoj@nervyvkrajce.cz</a>.</div>
+      </sc-if>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 14px;">
+        <input type="text" placeholder="Jméno" style="height: 54px; padding: 0 18px; border: 1px solid #F0D2E3; border-radius: 12px; background: #fff; font-size: 15px; color: #17131B; outline: none; width: 100%;" style-focus="border-color: #FF0F9C;" />
+        <input type="email" placeholder="E-mail" style="height: 54px; padding: 0 18px; border: 1px solid #F0D2E3; border-radius: 12px; background: #fff; font-size: 15px; color: #17131B; outline: none; width: 100%;" style-focus="border-color: #FF0F9C;" />
+      </div>
+      <textarea placeholder="Téma nebo dotaz do epizody" rows="5" style="padding: 16px 18px; border: 1px solid #F0D2E3; border-radius: 12px; background: #fff; font-size: 15px; line-height: 1.6; color: #17131B; outline: none; width: 100%;" style-focus="border-color: #FF0F9C;"></textarea>
+      <button type="button" style="align-self: flex-start; margin-top: 6px; border: 0; cursor: pointer; height: 56px; padding: 0 32px; border-radius: 999px; background: #FF0F9C; color: #fff; font-size: 15px; font-weight: 700;" style-hover="background: #17131B;">Poslat téma</button>
+    </div>
+  </div>
+</div>
+
+<sc-if value="{{ showInstagram }}" hint-placeholder-val="{{ true }}">
+  <div style="padding: clamp(52px, 6vw, 84px) clamp(20px, 5vw, 56px); background: #FCF9F7;">
+    <div style="max-width: 1240px; margin: 0 auto;">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 14px 28px; margin-bottom: 26px;">
+        <a href="https://www.instagram.com/nervyvkrajce_podcast/" target="_blank" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(22px, 2.8vw, 30px); letter-spacing: -0.01em; color: #17131B;" style-hover="color: #FF0F9C;">@nervyvkrajce_podcast</a>
+        <a href="https://www.instagram.com/nervyvkrajce_podcast/" target="_blank" style="font-size: 14px; font-weight: 700;">Sledovat na Instagramu →</a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr)); gap: 12px;">
+        <a href="https://www.instagram.com/nervyvkrajce_podcast/" target="_blank" style="aspect-ratio: 1; border-radius: 12px; background: repeating-linear-gradient(45deg, #F1EAE5 0 8px, #FAF6F3 8px 16px); display: flex; align-items: center; justify-content: center; font-family: ui-monospace, monospace; font-size: 10px; color: #8F857D;">IG post</a>
+        <a href="https://www.instagram.com/nervyvkrajce_podcast/" target="_blank" style="aspect-ratio: 1; border-radius: 12px; background: repeating-linear-gradient(45deg, #F1EAE5 0 8px, #FAF6F3 8px 16px); display: flex; align-items: center; justify-content: center; font-family: ui-monospace, monospace; font-size: 10px; color: #8F857D;">IG post</a>
+        <a href="https://www.instagram.com/nervyvkrajce_podcast/" target="_blank" style="aspect-ratio: 1; border-radius: 12px; background: repeating-linear-gradient(45deg, #F1EAE5 0 8px, #FAF6F3 8px 16px); display: flex; align-items: center; justify-content: center; font-family: ui-monospace, monospace; font-size: 10px; color: #8F857D;">IG post</a>
+        <a href="https://www.instagram.com/nervyvkrajce_podcast/" target="_blank" style="aspect-ratio: 1; border-radius: 12px; background: repeating-linear-gradient(45deg, #F1EAE5 0 8px, #FAF6F3 8px 16px); display: flex; align-items: center; justify-content: center; font-family: ui-monospace, monospace; font-size: 10px; color: #8F857D;">IG post</a>
+        <a href="https://www.instagram.com/nervyvkrajce_podcast/" target="_blank" style="aspect-ratio: 1; border-radius: 12px; background: repeating-linear-gradient(45deg, #F1EAE5 0 8px, #FAF6F3 8px 16px); display: flex; align-items: center; justify-content: center; font-family: ui-monospace, monospace; font-size: 10px; color: #8F857D;">IG post</a>
+        <a href="https://www.instagram.com/nervyvkrajce_podcast/" target="_blank" style="aspect-ratio: 1; border-radius: 12px; background: repeating-linear-gradient(45deg, #F1EAE5 0 8px, #FAF6F3 8px 16px); display: flex; align-items: center; justify-content: center; font-family: ui-monospace, monospace; font-size: 10px; color: #8F857D;">IG post</a>
+      </div>
+      <div style="margin-top: 14px; font-family: ui-monospace, monospace; font-size: 12px; color: #8F857D;">živý feed doplní widget (Elfsight / Behold) po nasazení — dlaždice zatím odkazují na profil</div>
+    </div>
+  </div>
+</sc-if>
+
+<div style="padding: clamp(40px, 5vw, 54px) clamp(20px, 5vw, 56px); background: #17131B;">
+  <div style="max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px 40px;">
+    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px;">
+      <img src="assets/logo-mark.png" alt="Nervy v krajce podcast" style="height: 40px; width: auto; display: block; align-self: flex-start;" />
+      <span style="font-size: 13px; color: rgba(255,255,255,0.5);">Podcast moderují Marcela Cihlářová a Martina z Alp Weddings.</span>
+    </div>
+    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px 26px; font-size: 14px;">
+      <a href="#epizody" style="color: rgba(255,255,255,0.72);">Epizody</a>
+      <a href="#shorts" style="color: rgba(255,255,255,0.72);">Shorts</a>
+      <a href="#kdo-jsme" style="color: rgba(255,255,255,0.72);">Kdo jsme</a>
+      <a href="https://www.instagram.com/nervyvkrajce_podcast/" target="_blank" style="color: rgba(255,255,255,0.72);">Instagram</a>
+      <a href="https://open.spotify.com/show/4TsA6sygVBOWhEKl0IZ0I7" target="_blank" style="color: rgba(255,255,255,0.72);">Spotify</a>
+      <a href="https://www.tiktok.com/@nervyvkrajce_podcast" target="_blank" style="color: rgba(255,255,255,0.72);">TikTok</a>
+      <a href="mailto:ahoj@nervyvkrajce.cz" style="color: rgba(255,255,255,0.72);">Kontakt</a>
+      <span style="font-size: 13px; color: rgba(255,255,255,0.38);">© 2026</span>
+    </div>
+  </div>
+</div>
+
+<sc-if value="{{ playerOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closePlayer }}" style="position: fixed; inset: 0; z-index: 90; background: rgba(15,11,18,0.86); display: flex; align-items: center; justify-content: center; padding: clamp(16px, 4vw, 56px);">
+    <div style="width: 100%; max-width: 1080px; display: flex; flex-direction: column; gap: 16px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px 24px;">
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(16px, 2vw, 20px); color: #fff;">{{ playerTitle }}</span>
+        <button type="button" onClick="{{ closePlayer }}" style="border: 1px solid rgba(255,255,255,0.3); background: transparent; color: #fff; cursor: pointer; height: 40px; padding: 0 20px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;" style-hover="background: #FF0F9C; border-color: #FF0F9C;">Zavřít</button>
+      </div>
+      <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #000;">
+        <iframe src="{{ playerSrc }}" title="Nervy v krajce — přehrávač" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen="" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"></iframe>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showInstagram&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sekce&quot;},&quot;showPartnerNote&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sekce&quot;}}">
+class Component extends DCLogic {
+  state = { playing: null };
+
+  // YouTube systémové playlisty kanálu @nervyvkrajce (UCHKjl2FUGINKljeazp3yLAg):
+  //   UULF... = jen dlouhá videa (epizody)   UUSH... = jen shorts
+  playlist = 'UULFHKjl2FUGINKljeazp3yLAg';
+
+  // videoId = 11 znaků z odkazu youtube.com/watch?v=XXXXXXXXXXX
+  // Jakmile ho doplníš, náhled i přehrávač jdou přímo na tu epizodu.
+  data = [
+    { num: '#21', title: 'Kolik svatba doopravdy stojí — a kde se šetřit nevyplatí', dur: '52 min', tag: 'Rozpočet', index: 1, videoId: '' },
+    { num: '#20', title: 'Koordinátorka, nebo kamarádka? Kdo ti zachrání den D', dur: '47 min', tag: 'Organizace', index: 2, videoId: '' },
+    { num: '#19', title: 'Svatba v zahraničí: sen, nebo logistický horor?', dur: '58 min', tag: 'Destinace', index: 3, videoId: '' },
+    { num: '#18', title: 'Harmonogram dne D: pět chyb, které dělá skoro každý', dur: '44 min', tag: 'Tipy', index: 4, videoId: '' },
+    { num: '#17', title: 'Zasedací pořádek, plus jedničky a rodinná diplomacie', dur: '41 min', tag: 'Hosté', index: 5, videoId: '' },
+    { num: '#16', title: 'Dodavatelé bez filtru: jak poznat, že se blíží problém', dur: '55 min', tag: 'Bez filtru', index: 6, videoId: '' }
+  ];
+
+  srcFor(ep) {
+    if (ep.videoId) return 'https://www.youtube.com/embed/' + ep.videoId + '?autoplay=1&rel=0';
+    return 'https://www.youtube.com/embed/videoseries?list=' + this.playlist + '&index=' + ep.index + '&autoplay=1&rel=0';
+  }
+
+  componentDidMount() {
+    this._esc = (e) => { if (e.key === 'Escape') this.setState({ playing: null }); };
+    window.addEventListener('keydown', this._esc);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._esc);
+  }
+
+  renderVals() {
+    const playing = this.state.playing;
+    return {
+      episodes: this.data.map((ep) => Object.assign({}, ep, {
+        hasThumb: !!ep.videoId,
+        noThumb: !ep.videoId,
+        thumb: ep.videoId ? 'https://i.ytimg.com/vi/' + ep.videoId + '/hqdefault.jpg' : '',
+        embed: 'https://www.youtube.com/embed/videoseries?list=' + this.playlist + '&index=' + ep.index + '&rel=0',
+        onPlay: () => this.setState({ playing: ep })
+      })),
+      playLatest: () => this.setState({ playing: this.data[0] }),
+      closePlayer: () => this.setState({ playing: null }),
+      playerOpen: !!playing,
+      playerTitle: playing ? playing.title : '',
+      playerSrc: playing ? this.srcFor(playing) : '',
+      showInstagram: this.props.showInstagram ?? true,
+      showPartnerNote: this.props.showPartnerNote ?? true
+    };
+  }
+}
+
+</script>
+</body>
+</html>
