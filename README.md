@@ -86,8 +86,16 @@ vykreslí s videi z playlistu.
 
 - Portréty v sekci „Kdo jsme" jsou pořád placeholdery (`portrét … — nahraj sem`).
   Nahraj obrázky do `public/assets/` a nahraď jimi šrafované boxy.
-- Náhled odkazu (`public/assets/og.png`, 1200×630) i `og:*` značky v hlavičce
-  obsahují natvrdo adresu `https://nervyvkrajce.vercel.app`. Při přechodu na
-  vlastní doménu je potřeba přepsat `og:url`, `og:image` a `twitter:image`
-  v `public/index.html` — relativní cesta tam fungovat nebude, roboti
-  sociálních sítí ji nevyhodnotí.
+## Domény
+
+Web běží na `https://www.nervyvkrajce.cz`; `nervyvkrajce.cz` bez www na ni
+přesměrovává (308) a původní `nervyvkrajce.vercel.app` zůstává funkční.
+
+DNS je na Wedosu: `@` typu A na `216.198.79.1`, `www` typu CNAME na hodnotu,
+kterou Vercel vypisuje v Settings → Domains. **MX a DKIM záznamy patří poště
+na Wedosu — při zásazích do zóny je nechat být.** Certifikát řeší Vercel sám
+přes Let's Encrypt.
+
+Značky `og:url`, `og:image` a `twitter:image` v `public/index.html` obsahují
+absolutní adresu natvrdo — relativní cesta by nefungovala, roboti sociálních
+sítí ji nevyhodnotí. **Při změně domény je potřeba přepsat všechny tři.**
