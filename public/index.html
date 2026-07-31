@@ -3,31 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+
+<!-- POZOR: tohle musí zůstat přímo tady v <head>, ne v <helmet> níž.
+     Roboti Facebooku, Googlu a spol. nespouštějí JavaScript, takže značky,
+     které do hlavičky vkládá až support.js za běhu, vůbec neuvidí.
+     Při změně domény přepsat canonical, og:url, og:image a twitter:image. -->
 <title>Nervy v krajce — svatební podcast</title>
 <meta name="description" content="Podcast pro všechny, kterým nestačí hezké fotky na Instagramu. Praktické rady, které ti ušetří nervy i peníze, a reálné příběhy nevěst, hostů a dodavatelů." />
+<link rel="canonical" href="https://www.nervyvkrajce.cz/" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Nervy v krajce — svatební podcast" />
 <meta property="og:description" content="Tady se mluví narovinu o svatbách. Praktické rady, které ti ušetří nervy i peníze." />
 <meta property="og:url" content="https://www.nervyvkrajce.cz/" />
 <meta property="og:site_name" content="Nervy v krajce" />
 <meta property="og:locale" content="cs_CZ" />
-<!-- Náhled odkazu vyžaduje absolutní URL — roboti sítí relativní cestu nevyhodnotí.
-     Při změně domény je potřeba přepsat og:url, og:image i twitter:image. -->
 <meta property="og:image" content="https://www.nervyvkrajce.cz/assets/og.png" />
+<meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Nervy v krajce — svatební podcast: tady se mluví narovinu o svatbách" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Nervy v krajce — svatební podcast" />
+<meta name="twitter:description" content="Tady se mluví narovinu o svatbách. Praktické rady, které ti ušetří nervy i peníze." />
 <meta name="twitter:image" content="https://www.nervyvkrajce.cz/assets/og.png" />
 <link rel="icon" href="assets/logo-mark.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
 <link rel="preconnect" href="https://i.ytimg.com" />
+
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<!-- Meta značky pro SEO a náhledy odkazů jsou nahoře v <head>, ne tady —
+     tenhle blok vkládá do hlavičky až JavaScript, který roboti nespouštějí. -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&amp;family=Manrope:wght@400;500;600;700&amp;family=Sacramento&amp;display=swap" rel="stylesheet" />
 <style>
 * { box-sizing: border-box; }
