@@ -86,6 +86,8 @@ vykreslí s videi z playlistu.
 
 - Portréty v sekci „Kdo jsme" jsou pořád placeholdery (`portrét … — nahraj sem`).
   Nahraj obrázky do `public/assets/` a nahraď jimi šrafované boxy.
-- `og:image` v hlavičce míří na logo relativní cestou. Náhledy odkazů na
-  Facebooku a v chatech potřebují **absolutní** URL — po nasazení přepiš na
-  `https://<tvoje-domena>/assets/og.png` a nahraj tam grafiku 1200×630.
+- Náhled odkazu (`public/assets/og.png`, 1200×630) i `og:*` značky v hlavičce
+  obsahují natvrdo adresu `https://nervyvkrajce.vercel.app`. Při přechodu na
+  vlastní doménu je potřeba přepsat `og:url`, `og:image` a `twitter:image`
+  v `public/index.html` — relativní cesta tam fungovat nebude, roboti
+  sociálních sítí ji nevyhodnotí.
