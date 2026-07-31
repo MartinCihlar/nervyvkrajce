@@ -3,3 +3,7 @@
 .env*.local
 node_modules
 .DS_Store
+
+# Originály fotek z fotoaparátu (16 MB kus) — na web se používají
+# zmenšené verze v public/assets, originály do repozitáře nepatří
+build/assets/*.jpg
