@@ -281,17 +281,28 @@ textarea { resize: vertical; }
       <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(30px, 3.8vw, 40px); line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; color: #17131B;">Máš téma<br />do epizody?</h2>
       <p style="margin: 18px 0 0; max-width: 440px; font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; color: #6B6470;">Napiš nám, co tě na svatbách pálí. Nejzajímavější dotazy rozebíráme v dalších dílech — klidně anonymně.</p>
       <sc-if value="{{ showPartnerNote }}" hint-placeholder-val="{{ true }}">
-        <div style="margin-top: 34px; padding-top: 24px; border-top: 1px solid #F5D8E8; font-size: 15px; line-height: 1.6; color: #6B6470;">Chceš být partnerem epizody? Napiš na <a href="mailto:ahoj@nervyvkrajce.cz">ahoj@nervyvkrajce.cz</a>.</div>
+        <div style="margin-top: 34px; padding-top: 24px; border-top: 1px solid #F5D8E8; font-size: 15px; line-height: 1.6; color: #6B6470;">Chceš být partnerem epizody? Napiš na <a href="mailto:svatba@nervyvkrajce.cz">svatba@nervyvkrajce.cz</a>.</div>
       </sc-if>
     </div>
-    <div style="display: flex; flex-direction: column; gap: 14px;">
+    <form onSubmit="{{ odeslatTema }}" style="display: flex; flex-direction: column; gap: 14px;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 14px;">
-        <input type="text" placeholder="Jméno" style="height: 54px; padding: 0 18px; border: 1px solid #F0D2E3; border-radius: 12px; background: #fff; font-size: 15px; color: #17131B; outline: none; width: 100%;" style-focus="border-color: #FF0F9C;" />
-        <input type="email" placeholder="E-mail" style="height: 54px; padding: 0 18px; border: 1px solid #F0D2E3; border-radius: 12px; background: #fff; font-size: 15px; color: #17131B; outline: none; width: 100%;" style-focus="border-color: #FF0F9C;" />
+        <input type="text" name="jmeno" placeholder="Jméno" required="" maxlength="100" autocomplete="name" style="height: 54px; padding: 0 18px; border: 1px solid #F0D2E3; border-radius: 12px; background: #fff; font-size: 15px; color: #17131B; outline: none; width: 100%;" style-focus="border-color: #FF0F9C;" />
+        <input type="email" name="email" placeholder="E-mail" required="" maxlength="200" autocomplete="email" style="height: 54px; padding: 0 18px; border: 1px solid #F0D2E3; border-radius: 12px; background: #fff; font-size: 15px; color: #17131B; outline: none; width: 100%;" style-focus="border-color: #FF0F9C;" />
       </div>
-      <textarea placeholder="Téma nebo dotaz do epizody" rows="5" style="padding: 16px 18px; border: 1px solid #F0D2E3; border-radius: 12px; background: #fff; font-size: 15px; line-height: 1.6; color: #17131B; outline: none; width: 100%;" style-focus="border-color: #FF0F9C;"></textarea>
-      <button type="button" style="align-self: flex-start; margin-top: 6px; border: 0; cursor: pointer; height: 56px; padding: 0 32px; border-radius: 999px; background: #FF0F9C; color: #fff; font-size: 15px; font-weight: 700;" style-hover="background: #17131B;">Poslat téma</button>
-    </div>
+      <textarea name="zprava" placeholder="Téma nebo dotaz do epizody" rows="5" required="" maxlength="4000" style="padding: 16px 18px; border: 1px solid #F0D2E3; border-radius: 12px; background: #fff; font-size: 15px; line-height: 1.6; color: #17131B; outline: none; width: 100%;" style-focus="border-color: #FF0F9C;"></textarea>
+
+      <!-- Návnada na roboty. Pro lidi neviditelná, takže vyplněná = spam. -->
+      <input type="text" name="web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;" />
+
+      <button type="submit" disabled="{{ odesilam }}" style="align-self: flex-start; margin-top: 6px; border: 0; cursor: pointer; height: 56px; padding: 0 32px; border-radius: 999px; background: #FF0F9C; color: #fff; font-size: 15px; font-weight: 700;" style-hover="background: #17131B;">{{ textTlacitka }}</button>
+
+      <sc-if value="{{ odeslanoOk }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 14px 18px; border-radius: 12px; background: #fff; border: 1px solid #F0D2E3; font-size: 15px; line-height: 1.6; color: #17131B;">Díky, zpráva dorazila. Ozveme se, nebo téma rovnou uslyšíš v některém z dalších dílů.</div>
+      </sc-if>
+      <sc-if value="{{ odeslaniChyba }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 14px 18px; border-radius: 12px; background: #fff; border: 1px solid #F0D2E3; font-size: 15px; line-height: 1.6; color: #17131B;">{{ chybaText }} Napiš nám prosím na <a href="mailto:svatba@nervyvkrajce.cz">svatba@nervyvkrajce.cz</a>.</div>
+      </sc-if>
+    </form>
   </div>
 </div>
 
@@ -353,7 +364,8 @@ textarea { resize: vertical; }
 class Component extends DCLogic {
   // episodes/shorts drží živá data z /api/episodes; dokud nedorazí, platí fallback níž.
   // load: 'loading' → tmavé placeholdery, 'ready' → náhledy, 'error' → iframy z playlistu
-  state = { playing: null, episodes: null, shorts: null, total: null, load: 'loading' };
+  // kontakt: 'idle' | 'odesilam' | 'ok' | 'chyba'
+  state = { playing: null, episodes: null, shorts: null, total: null, load: 'loading', kontakt: 'idle', kontaktChyba: '' };
 
   // YouTube systémové playlisty kanálu @nervyvkrajce (UCHKjl2FUGINKljeazp3yLAg):
   //   UULF... = jen dlouhá videa (epizody)   UUSH... = jen shorts
@@ -417,6 +429,38 @@ class Component extends DCLogic {
       });
   }
 
+  odeslatFormular(e) {
+    e.preventDefault();
+    if (this.state.kontakt === 'odesilam') return;
+
+    const formular = e.currentTarget;
+    const data = new FormData(formular);
+    const telo = {
+      jmeno: data.get('jmeno') || '',
+      email: data.get('email') || '',
+      zprava: data.get('zprava') || '',
+      web: data.get('web') || ''
+    };
+
+    this.setState({ kontakt: 'odesilam', kontaktChyba: '' });
+
+    fetch('/api/kontakt', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(telo)
+    })
+      .then((r) => r.json().catch(() => ({})).then((d) => ({ ok: r.ok, d })))
+      .then(({ ok, d }) => {
+        if (!ok) throw new Error(d.error || 'Odeslání se nepovedlo.');
+        formular.reset();
+        this.setState({ kontakt: 'ok' });
+      })
+      .catch((err) => {
+        console.warn('Formulář se neodeslal:', err);
+        this.setState({ kontakt: 'chyba', kontaktChyba: err.message || 'Odeslání se nepovedlo.' });
+      });
+  }
+
   // Karta ukáže náhled, jakmile známe videoId. Iframe z playlistu nasazujeme
   // až když načtení selže — jinak by se při každém načtení stránky založilo
   // 11 iframů, které fetch o chvíli později stejně zahodí.
@@ -452,6 +496,12 @@ class Component extends DCLogic {
       playerOpen: !!playing,
       playerTitle: playing ? playing.title : '',
       playerSrc: playing ? this.srcFor(playing, playing.playlist) : '',
+      odeslatTema: (e) => this.odeslatFormular(e),
+      odesilam: this.state.kontakt === 'odesilam',
+      textTlacitka: this.state.kontakt === 'odesilam' ? 'Odesílám…' : 'Poslat téma',
+      odeslanoOk: this.state.kontakt === 'ok',
+      odeslaniChyba: this.state.kontakt === 'chyba',
+      chybaText: this.state.kontaktChyba,
       showInstagram: this.props.showInstagram ?? true,
       showPartnerNote: this.props.showPartnerNote ?? true
     };

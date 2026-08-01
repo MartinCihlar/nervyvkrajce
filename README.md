@@ -86,6 +86,29 @@ vykreslí s videi z playlistu.
 
 - Portréty v sekci „Kdo jsme" jsou pořád placeholdery (`portrét … — nahraj sem`).
   Nahraj obrázky do `public/assets/` a nahraď jimi šrafované boxy.
+## Kontaktní formulář
+
+Sekce „Máš téma do epizody?" posílá data na `/api/kontakt`, což je serverless
+funkce, která zprávu přepošle e-mailem přes [Resend](https://resend.com).
+
+Proměnné prostředí na Vercelu:
+
+| Proměnná | Povinná | Výchozí |
+|---|---|---|
+| `RESEND_API_KEY` | ano | — |
+| `KONTAKT_PRIJEMCE` | ne | `svatba@nervyvkrajce.cz` |
+| `RESEND_ODESILATEL` | ne | `Nervy v krajce <onboarding@resend.dev>` |
+
+**Resend doručí z `onboarding@resend.dev` jen na adresu, kterou má účet
+zaregistrovanou.** Aby chodily zprávy kamkoli, je potřeba v Resendu ověřit
+doménu (Domains → Add Domain) a pak nastavit `RESEND_ODESILATEL` na adresu
+z ní. Doporučeně na subdoméně `send.nervyvkrajce.cz`, ať se nesahá na SPF
+a DKIM hlavní domény, kde běží pošta Wedosu.
+
+Proti robotům má formulář skryté pole `web`. Když dorazí vyplněné, funkce
+odpoví jako by se odeslalo, ale e-mail nepošle. Bez klíče formulář návštěvníkovi
+zobrazí chybu s odkazem na e-mail, nikdy netvrdí, že se zpráva odeslala.
+
 ## Domény
 
 Web běží na `https://www.nervyvkrajce.cz`; `nervyvkrajce.cz` bez www na ni
