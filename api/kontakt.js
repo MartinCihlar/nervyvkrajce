@@ -1,7 +1,7 @@
 // Přijímá formulář "Máš téma do epizody?" a přeposílá ho e-mailem přes Resend.
 // API klíč zůstává na serveru; do prohlížeče se nikdy nedostane.
 
-const PRIJEMCE = process.env.KONTAKT_PRIJEMCE || 'svatba@nervyvkrajce.cz';
+const PRIJEMCE = process.env.KONTAKT_PRIJEMCE || 'svatby@nervyvkrajce.cz';
 
 // Resend povoluje posílat jen z ověřené domény. Než se nervyvkrajce.cz ověří,
 // funguje onboarding@resend.dev, ale ten doručí pouze na adresu, kterou má

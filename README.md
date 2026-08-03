@@ -82,10 +82,6 @@ Bez klíče a bez Node.js si můžeš aspoň prohlédnout vzhled — jakýkoli s
 server nad `public/`. `/api/episodes` sice selže, ale díky fallbacku se stránka
 vykreslí s videi z playlistu.
 
-## Co ještě čeká na doplnění
-
-- Portréty v sekci „Kdo jsme" jsou pořád placeholdery (`portrét … — nahraj sem`).
-  Nahraj obrázky do `public/assets/` a nahraď jimi šrafované boxy.
 ## Kontaktní formulář
 
 Sekce „Máš téma do epizody?" posílá data na `/api/kontakt`, což je serverless
@@ -96,7 +92,7 @@ Proměnné prostředí na Vercelu:
 | Proměnná | Povinná | Výchozí |
 |---|---|---|
 | `RESEND_API_KEY` | ano | — |
-| `KONTAKT_PRIJEMCE` | ne | `svatba@nervyvkrajce.cz` |
+| `KONTAKT_PRIJEMCE` | ne | `svatby@nervyvkrajce.cz` |
 | `RESEND_ODESILATEL` | ne | `Nervy v krajce <onboarding@resend.dev>` |
 
 **Resend doručí z `onboarding@resend.dev` jen na adresu, kterou má účet
