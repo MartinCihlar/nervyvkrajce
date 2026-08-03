@@ -281,7 +281,7 @@ textarea { resize: vertical; }
       <h2 style="margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(30px, 3.8vw, 40px); line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; color: #17131B;">Máš téma<br />do epizody?</h2>
       <p style="margin: 18px 0 0; max-width: 440px; font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; color: #6B6470;">Napiš nám, co tě na svatbách pálí. Nejzajímavější dotazy rozebíráme v dalších dílech — klidně anonymně.</p>
       <sc-if value="{{ showPartnerNote }}" hint-placeholder-val="{{ true }}">
-        <div style="margin-top: 34px; padding-top: 24px; border-top: 1px solid #F5D8E8; font-size: 15px; line-height: 1.6; color: #6B6470;">Chceš být partnerem epizody? Napiš na <a href="mailto:svatby@nervyvkrajce.cz">svatby@nervyvkrajce.cz</a>.</div>
+        <div style="margin-top: 34px; padding-top: 24px; border-top: 1px solid #F5D8E8; font-size: 15px; line-height: 1.6; color: #6B6470;">Chceš být partnerem epizody? Napiš na <a href="mailto:podcast@nervyvkrajce.cz">podcast@nervyvkrajce.cz</a>.</div>
       </sc-if>
     </div>
     <form onSubmit="{{ odeslatTema }}" style="display: flex; flex-direction: column; gap: 14px;">
@@ -300,7 +300,7 @@ textarea { resize: vertical; }
         <div style="padding: 14px 18px; border-radius: 12px; background: #fff; border: 1px solid #F0D2E3; font-size: 15px; line-height: 1.6; color: #17131B;">Díky, zpráva dorazila. Ozveme se, nebo téma rovnou uslyšíš v některém z dalších dílů.</div>
       </sc-if>
       <sc-if value="{{ odeslaniChyba }}" hint-placeholder-val="{{ false }}">
-        <div style="padding: 14px 18px; border-radius: 12px; background: #fff; border: 1px solid #F0D2E3; font-size: 15px; line-height: 1.6; color: #17131B;">{{ chybaText }} Napiš nám prosím na <a href="mailto:svatby@nervyvkrajce.cz">svatby@nervyvkrajce.cz</a>.</div>
+        <div style="padding: 14px 18px; border-radius: 12px; background: #fff; border: 1px solid #F0D2E3; font-size: 15px; line-height: 1.6; color: #17131B;">{{ chybaText }} Napiš nám prosím na <a href="mailto:podcast@nervyvkrajce.cz">podcast@nervyvkrajce.cz</a>.</div>
       </sc-if>
     </form>
   </div>

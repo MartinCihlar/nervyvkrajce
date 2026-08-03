@@ -92,7 +92,7 @@ Proměnné prostředí na Vercelu:
 | Proměnná | Povinná | Výchozí |
 |---|---|---|
 | `RESEND_API_KEY` | ano | — |
-| `KONTAKT_PRIJEMCE` | ne | `svatby@nervyvkrajce.cz` |
+| `KONTAKT_PRIJEMCE` | ne | `podcast@nervyvkrajce.cz` |
 | `RESEND_ODESILATEL` | ne | `Nervy v krajce <onboarding@resend.dev>` |
 
 **Resend doručí z `onboarding@resend.dev` jen na adresu, kterou má účet
