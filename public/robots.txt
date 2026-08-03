@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Serverless funkce nemají ve výsledcích vyhledávání co dělat
+Disallow: /api/
+
+Sitemap: https://www.nervyvkrajce.cz/sitemap.xml

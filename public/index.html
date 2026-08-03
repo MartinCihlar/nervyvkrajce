@@ -27,6 +27,34 @@
 <meta name="twitter:description" content="Tady se mluví narovinu o svatbách. Praktické rady, které ti ušetří nervy i peníze." />
 <meta name="twitter:image" content="https://www.nervyvkrajce.cz/assets/og.png" />
 <link rel="icon" href="assets/logo-mark.png" />
+
+<!-- Strukturovaná data pro vyhledávače. Musí být staticky tady, ne v <helmet> —
+     ze stejného důvodu jako og: značky výš. Obsahuje jen neměnná fakta;
+     epizody se sem netahají, ty naskakují až JavaScriptem. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PodcastSeries",
+  "name": "Nervy v krajce",
+  "alternateName": "Nervy v krajce — svatební podcast",
+  "description": "Podcast pro všechny, kterým nestačí hezké fotky na Instagramu. Praktické rady, které ti ušetří nervy i peníze, a reálné příběhy nevěst, hostů a dodavatelů.",
+  "url": "https://www.nervyvkrajce.cz/",
+  "image": "https://www.nervyvkrajce.cz/assets/og.png",
+  "inLanguage": "cs-CZ",
+  "sameAs": [
+    "https://www.youtube.com/@nervyvkrajce/",
+    "https://open.spotify.com/show/4TsA6sygVBOWhEKl0IZ0I7",
+    "https://podcasts.apple.com/cz/podcast/nervy-v-krajce/id1882758433",
+    "https://www.instagram.com/nervyvkrajce_podcast/",
+    "https://www.tiktok.com/@nervyvkrajce_podcast"
+  ],
+  "author": [
+    { "@type": "Person", "name": "Marcela Cihlářová", "jobTitle": "Svatební koordinátorka", "url": "https://www.marcelacihlarova.cz" },
+    { "@type": "Person", "name": "Martina", "jobTitle": "Svatební plannerka", "url": "https://alp-weddings.com" }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
 <link rel="preconnect" href="https://i.ytimg.com" />
