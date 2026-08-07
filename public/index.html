@@ -79,16 +79,21 @@ textarea { resize: vertical; }
 </style>
 </helmet>
 
-<div style="position: sticky; top: 0; z-index: 30; padding: 14px clamp(20px, 5vw, 56px); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 28px; border-bottom: 1px solid #EBE3DE; background: rgba(252,249,247,0.9); backdrop-filter: blur(12px);">
-  <a href="#top" style="display: flex; align-items: center;"><img src="assets/logo-mark.png" alt="Nervy v krajce podcast" style="height: clamp(34px, 4.4vw, 44px); width: auto; display: block;" /></a>
-  <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px clamp(16px, 2.4vw, 32px);">
-    <a href="#epizody" style="font-size: 15px; font-weight: 600; color: #4A4350;">Epizody</a>
-    <a href="#shorts" style="font-size: 15px; font-weight: 600; color: #4A4350;">Shorts</a>
-    <a href="#o-podcastu" style="font-size: 15px; font-weight: 600; color: #4A4350;">O podcastu</a>
-    <a href="#kdo-jsme" style="font-size: 15px; font-weight: 600; color: #4A4350;">Kdo jsme</a>
-    <a href="#kde" style="font-size: 15px; font-weight: 600; color: #4A4350;">Kde poslouchat</a>
+<!-- Pruh drží barvu a linku přes celou šířku okna, ale jeho obsah je uvnitř
+     ve sloupci 1240 px — stejném, jaký používají všechny sekce níž, aby logo
+     a tlačítko lícovala s obsahem stránky i na širokém monitoru. -->
+<div style="position: sticky; top: 0; z-index: 30; padding: 14px clamp(20px, 5vw, 56px); border-bottom: 1px solid #EBE3DE; background: rgba(252,249,247,0.9); backdrop-filter: blur(12px);">
+  <div style="max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 28px;">
+    <a href="#top" style="display: flex; align-items: center;"><img src="assets/logo-mark.png" alt="Nervy v krajce podcast" style="height: clamp(34px, 4.4vw, 44px); width: auto; display: block;" /></a>
+    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px clamp(16px, 2.4vw, 32px);">
+      <a href="#epizody" style="font-size: 15px; font-weight: 600; color: #4A4350;">Epizody</a>
+      <a href="#shorts" style="font-size: 15px; font-weight: 600; color: #4A4350;">Shorts</a>
+      <a href="#o-podcastu" style="font-size: 15px; font-weight: 600; color: #4A4350;">O podcastu</a>
+      <a href="#kdo-jsme" style="font-size: 15px; font-weight: 600; color: #4A4350;">Kdo jsme</a>
+      <a href="#kde" style="font-size: 15px; font-weight: 600; color: #4A4350;">Kde poslouchat</a>
+    </div>
+    <button type="button" onClick="{{ playLatest }}" style="border: 0; cursor: pointer; height: 46px; padding: 0 24px; border-radius: 999px; background: #FF0F9C; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;" style-hover="background: #17131B;">Poslechnout</button>
   </div>
-  <button type="button" onClick="{{ playLatest }}" style="border: 0; cursor: pointer; height: 46px; padding: 0 24px; border-radius: 999px; background: #FF0F9C; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;" style-hover="background: #17131B;">Poslechnout</button>
 </div>
 
 <div id="top" style="padding: clamp(48px, 6vw, 84px) clamp(20px, 5vw, 56px) clamp(56px, 7vw, 92px);">
