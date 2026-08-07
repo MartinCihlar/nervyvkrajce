@@ -76,6 +76,21 @@ a:hover { color: #FF7A16; }
 img, iframe { max-width: 100%; }
 input, textarea, button { font-family: 'Manrope', system-ui, sans-serif; }
 textarea { resize: vertical; }
+
+/* Hlavička: na širokém okně odkazy v řádku, na mobilu pod ikonu se třemi
+   čárkami. Hranice 860 px je bod, kde se odkazy začnou lámat do dvou řádků.
+   Pozor: .nav-links nesmí mít vnitřní atribut style — ten by měl přednost
+   před tímhle stylopisem a pravidla v @media by se neuplatnila. */
+.nav-links { display: flex; align-items: center; flex-wrap: wrap; gap: 10px clamp(16px, 2.4vw, 32px); }
+.nav-toggle { display: none; }
+
+@media (max-width: 860px) {
+  /* order: 3 posune odkazy pod první řádek, i když jsou v kódu uprostřed */
+  .nav-links { order: 3; width: 100%; flex-direction: column; align-items: stretch; gap: 0; }
+  .nav-links[data-open="false"] { display: none; }
+  .nav-links a { padding: 13px 2px; font-size: 16px; border-top: 1px solid #EBE3DE; }
+  .nav-toggle { display: inline-flex; }
+}
 </style>
 </helmet>
 
@@ -85,14 +100,24 @@ textarea { resize: vertical; }
 <div style="position: sticky; top: 0; z-index: 30; padding: 14px clamp(20px, 5vw, 56px); border-bottom: 1px solid #EBE3DE; background: rgba(252,249,247,0.9); backdrop-filter: blur(12px);">
   <div style="max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 28px;">
     <a href="#top" style="display: flex; align-items: center;"><img src="assets/logo-mark.png" alt="Nervy v krajce podcast" style="height: clamp(34px, 4.4vw, 44px); width: auto; display: block;" /></a>
-    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px clamp(16px, 2.4vw, 32px);">
-      <a href="#epizody" style="font-size: 15px; font-weight: 600; color: #4A4350;">Epizody</a>
-      <a href="#shorts" style="font-size: 15px; font-weight: 600; color: #4A4350;">Shorts</a>
-      <a href="#o-podcastu" style="font-size: 15px; font-weight: 600; color: #4A4350;">O podcastu</a>
-      <a href="#kdo-jsme" style="font-size: 15px; font-weight: 600; color: #4A4350;">Kdo jsme</a>
-      <a href="#kde" style="font-size: 15px; font-weight: 600; color: #4A4350;">Kde poslouchat</a>
+
+    <div class="nav-links" data-open="{{ menuOtevreno }}">
+      <a href="#epizody" onClick="{{ zavritMenu }}" style="font-size: 15px; font-weight: 600; color: #4A4350;">Epizody</a>
+      <a href="#shorts" onClick="{{ zavritMenu }}" style="font-size: 15px; font-weight: 600; color: #4A4350;">Shorts</a>
+      <a href="#o-podcastu" onClick="{{ zavritMenu }}" style="font-size: 15px; font-weight: 600; color: #4A4350;">O podcastu</a>
+      <a href="#kdo-jsme" onClick="{{ zavritMenu }}" style="font-size: 15px; font-weight: 600; color: #4A4350;">Kdo jsme</a>
+      <a href="#kde" onClick="{{ zavritMenu }}" style="font-size: 15px; font-weight: 600; color: #4A4350;">Kde poslouchat</a>
     </div>
-    <button type="button" onClick="{{ playLatest }}" style="border: 0; cursor: pointer; height: 46px; padding: 0 24px; border-radius: 999px; background: #FF0F9C; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;" style-hover="background: #17131B;">Poslechnout</button>
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button type="button" onClick="{{ playLatest }}" style="border: 0; cursor: pointer; height: 46px; padding: 0 24px; border-radius: 999px; background: #FF0F9C; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;" style-hover="background: #17131B;">Poslechnout</button>
+
+      <button type="button" class="nav-toggle" onClick="{{ prepnoutMenu }}" aria-expanded="{{ menuOtevreno }}" aria-label="{{ popisMenu }}" style="align-items: center; justify-content: center; flex-direction: column; gap: 5px; width: 46px; height: 46px; padding: 0; border: 1px solid #DBD3CD; border-radius: 999px; background: transparent; cursor: pointer;" style-hover="border-color: #17131B;">
+        <span style="display: block; width: 18px; height: 2px; border-radius: 2px; background: #17131B;"></span>
+        <span style="display: block; width: 18px; height: 2px; border-radius: 2px; background: #17131B;"></span>
+        <span style="display: block; width: 18px; height: 2px; border-radius: 2px; background: #17131B;"></span>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -398,7 +423,8 @@ class Component extends DCLogic {
   // episodes/shorts drží živá data z /api/episodes; dokud nedorazí, platí fallback níž.
   // load: 'loading' → tmavé placeholdery, 'ready' → náhledy, 'error' → iframy z playlistu
   // kontakt: 'idle' | 'odesilam' | 'ok' | 'chyba'
-  state = { playing: null, episodes: null, shorts: null, total: null, load: 'loading', kontakt: 'idle', kontaktChyba: '' };
+  // menu: rozbalené odkazy v hlavičce na mobilu; na širokém okně je řeší CSS
+  state = { playing: null, episodes: null, shorts: null, total: null, load: 'loading', kontakt: 'idle', kontaktChyba: '', menu: false };
 
   // YouTube systémové playlisty kanálu @nervyvkrajce (UCHKjl2FUGINKljeazp3yLAg):
   //   UULF... = jen dlouhá videa (epizody)   UUSH... = jen shorts
@@ -529,6 +555,11 @@ class Component extends DCLogic {
       playerOpen: !!playing,
       playerTitle: playing ? playing.title : '',
       playerSrc: playing ? this.srcFor(playing, playing.playlist) : '',
+      // Řetězec, ne boolean — jde do atributu data-open, na který cílí CSS
+      menuOtevreno: this.state.menu ? 'true' : 'false',
+      popisMenu: this.state.menu ? 'Zavřít menu' : 'Otevřít menu',
+      prepnoutMenu: () => this.setState((s) => ({ menu: !s.menu })),
+      zavritMenu: () => this.setState({ menu: false }),
       odeslatTema: (e) => this.odeslatFormular(e),
       odesilam: this.state.kontakt === 'odesilam',
       textTlacitka: this.state.kontakt === 'odesilam' ? 'Odesílám…' : 'Poslat téma',
